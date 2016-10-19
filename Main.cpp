@@ -2,10 +2,16 @@
 #include <stdexcept>
 #include <iostream>
 #include <fstream>
-
 #include <stdlib.h>
+#include <vector>
+
+#include "Plugboard.hpp"
+#include "Reflector.hpp"
+#include "Rotor.hpp"
 
 using namespace std;
+
+extern const int Max_input = 26;
 
 int main(int argc, char **argv)
 {
@@ -19,9 +25,18 @@ int main(int argc, char **argv)
 
   }
 
+
+  //To get the rotor files
+  vector<Rotor> num_rotors;
+
   for(int i = 0; i < argc -1; ++i){
+    num_rotors.push_back(argv[1]);
     //TODO: rotors
   }
+
+  //To get the plugboard file
+  Plugboard pb_file = argv[argc - 1];
+  pb_file = new Plugboard;
 
  // cout << "TODO: implement an Enigma machine" << endl;
   //return 0;

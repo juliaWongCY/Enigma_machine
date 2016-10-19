@@ -3,12 +3,12 @@
 
 #include "Checker.hpp"
 
-using namespace std;
 
-const int Max_Input = 26;
+using namespace std;
+extern const int Max_input;
 
 bool isValidInput(int input){
-  return input >= 0 && input < Max_Input;
+  return input >= 0 && input < Max_input;
 }
 
 bool isRotorFile(char* filename){

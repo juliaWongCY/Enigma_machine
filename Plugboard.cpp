@@ -9,30 +9,43 @@
 #include "Utils.hpp"
 
 using namespace std;
-
-vector <pair <int, int> > vec_pair;
-pair <int, int> pair;
-
+extern const int Max_Input;
 
 //Constructor
-Plugboard :: Plugboard(){
+//TODO: Move around!!!!
 
-}
-
+typedef vector < pair<int, int> > vecPair;
 int Plugboard :: map(int input){
+  if(! isValidInput(input)){
+  cout << "Error:Plugboard input out of bound." << endl;
+  exit(EXIT_FAILURE);
+  }
 
+  for(vecPair::const_iterator iter = PB_vec_pair.begin(); iter != PB_vec_pair.end(); iter++){
+  if(iter->first == input){
+    return iter->second;
+  }
+  
+  if(iter->second == input){
+    return iter->first;
+  }
+  }
+  return input;
 }
 
+/*
 char Plugboard :: getOutputChar(int input){
   return IntToChar(input);
 }
+*/
 
-int Plugboard :: transform(char* filename){
-  int in_int;
-  int out_int;
+Plugboard :: Plugboard(char* filename){
+  int input1;
+  int input2;
 
-  int numOfInt = 0;
+//  int numOfInt = 0;
 
+//Reading the plugboard file
   ifstream plugboard_file;
   plugboard_file.open(filename);
 
@@ -40,11 +53,29 @@ int Plugboard :: transform(char* filename){
     cout << "Error: Plugboard file cannot be opned." << endl;
     exit(EXIT_FAILURE);
   }
+/*
+  while(!plugboard_file.eof()){
+   numOfInt ++; 
+  }
+*/
+  //TODO: CHEKC!!
+  //Insert the vector pair into the list of vectors
 
-  while(plugboard_file >> in_int){
-    numOfInt++;
+  plugboard_file >> input1;
+  plugboard_file >> input2;
+
+  while(!plugboard_file.eof()){
+    PB_vec_pair.push_back(make_pair(input1, input2));
+    plugboard_file >> input1;
+    plugboard_file >> input2;
+
   }
 
+if(PB_vec_pair.size() % 2 != 0){
+  cout << "Error: A plugboard file should contain an even number of numbers." << endl;
+}
+/*
+//The plugboard file should contain an even number of numbers
   if(numOfInt % 2 != 0){
     cout << "Error: A plugboard file should contain an even number of nums." << endl;
     exit(EXIT_FAILURE);
@@ -54,18 +85,18 @@ int Plugboard :: transform(char* filename){
     }
   }
 
-
+*/
   //vector< pair<int, int> > vec( (istreambuf_iterator<int>(plugboard_file)));
 
 
   plugboard_file.close();
-  return
+
 }
-
-
 
 
 //Destructor
 Plugboard :: ~Plugboard(){
 
+
 }
+
