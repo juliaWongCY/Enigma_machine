@@ -30,7 +30,6 @@ void Rotor :: readfile(char* filename){
   }
 
 
-  //TODO: CHEKC!!!
   rotor_file >> input;
   while(!rotor_file.eof()){
     for(int i = 0; i <  Max_input; ++i){
@@ -45,11 +44,9 @@ rotor_file.close();
 
 
 int Rotor :: map(int input){
-  // need to consider negative input
+  //considering negative input
   if(input < 0){
-//  cout << "can go in negative case" << endl;
- // cout << "input: " << input <<  endl;
-  return (26 +(input + moveForward[input])) % Max_input;
+  return (26 +(input +  moveForward[input])) % Max_input;
   }
  return (input + moveForward[input]) % Max_input;
 }
@@ -71,13 +68,13 @@ Rotor :: ~Rotor(){
 
 
 bool Rotor :: rotatedOneRound(){
-  return numOfRotation == Max_input;
-  /*
+//  return numOfRotation == Max_input;
+  
   if(numOfRotation == Max_input){
     numOfRotation = 0;
     return true;
   }
-  return false;*/
+  return false;
 }
 
 //After each input, the rotor will advance one posiiton

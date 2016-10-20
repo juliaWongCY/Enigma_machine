@@ -39,7 +39,6 @@ int main(int argc, char **argv){
   //To get the rotor files
 
   for(int i = 1; i < argc - 1; ++i){
-  //TODO: Need to check if the file is valdi?
    if(isRotorFile(argv[i])){
     rotor.readfile(argv[i]);
     num_rotors.push_back(rotor);
@@ -62,23 +61,14 @@ int main(int argc, char **argv){
   cin >> input;
 
   for(string :: iterator iter = input.begin(); iter != input.end(); ++iter){
+    if(isupper(*iter)){
     cout << Encryption(*iter);
-    RotatingRotors();
+//    RotatingRotors();
+  } else if(iswspace(*iter)){
+    cout <<"Error: the input should be Upper case and non white space char" << endl;
+    exit(EXIT_FAILURE);
   }
-
-
-
-
-/*
-  while(cin >> ws){
-  //  cout << "inside while"<< endl;
-    cin >> input;
-    //input = cin.get();
-//    cout << "input: " << input << endl;
-    cout << Encryption(input);
-    RotatingRotors();
-
-  }*/
+}
 exit(EXIT_SUCCESS);
 //return 0; //TODO
 }
@@ -87,39 +77,33 @@ exit(EXIT_SUCCESS);
 char Encryption(char c){
 
   int input = CharToInt(c);
+  size_t rotorSize = num_rotors.size();
 
 // 1st -- after reading the file, pass into plugboard
    input =  pb.map(input);
-// cout << "after pb map 1st" << input << endl;
-//   pb_ptr->map(input);
+
 
 //2nd -- pass to rotors(forward)
-  for(unsigned int i = 0; i < num_rotors.size(); ++i){
-  input = rotor.map(input);
+  for(unsigned int i = 0; i < rotorSize; ++i){
+  input = num_rotors[i].map(input);
   }
-// cout << "after rotor mapforward: " << input << endl;
-//  rotor_ptr->map(input);
+
 
 //3rd -- pass to reflector
   input = reflector.map(input);
-//  cout << "after reflector map: " << input << endl;
-//  reflector->map(input);
 
 //4th -- pass to rotors(backward)
-  for(unsigned int i = 0; i < num_rotors.size(); ++i){
-  input = rotor.mapBackward(input);
+//  for(unsigned int i = num_rotors.size() - 1; i >= 0; i--){
+  for(unsigned int i = 0; i < rotorSize; ++i){
+  input = num_rotors[rotorSize - i - 1].mapBackward(input);
   }
-//  cout << " after rotor mapback: " << input << endl;
-//  rotor_ptr->mapBackward(input);
 
-//5th -- pass throught plugboard again
+//5th -- pass through plugboard again
   input = pb.map(input);
-//  cout << " finish all process: " << input << endl;
-//  pb_ptr->map(input);
-//return result
+  
+  RotatingRotors();
+
   return (char)IntToChar(input);
-
-
 }
 
 
@@ -128,8 +112,8 @@ void RotatingRotors(){
   for(unsigned int i = 0; i < num_rotors.size(); i++){
     //If the first rotor has rotated one cycle, the next rotor needs to rotate
 
-    //num_rotors[i].rotate();
-    if(num_rotors[i].rotatedOneRound()){
+//    num_rotors[i].rotate();
+    if(num_rotors[i].rotatedOneRound()&& (i+1) < num_rotors.size()){
       num_rotors[i + 1].rotate();
     }
 
