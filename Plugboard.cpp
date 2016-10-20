@@ -83,14 +83,14 @@ int Plugboard :: map(int input){
 */
   for(vecPair::const_iterator iter = PB_vec_pair.begin(); iter != PB_vec_pair.end(); iter++){
   if(iter->first == input){
-    cout << iter->first << endl;
-    cout << input << endl;
+//    cout << iter->first << endl;
+  //  cout << input << endl;
     return iter->second;
   }
   
   if(iter->second == input){
-    cout << iter-> second << endl;
-    cout << input << endl;
+//    cout << iter-> second << endl;
+//    cout << input << endl;
     return iter->first;
   }
   }
