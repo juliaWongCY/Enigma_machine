@@ -1,11 +1,12 @@
 #include <iostream>
 #include <cstring>
+#include <stdlib.h>
 
 #include "Utils.hpp"
 
 using namespace std;
 
-int charToInt(char character){
+int CharToInt(char character){
   return character - 'A';
 }
 

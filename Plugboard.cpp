@@ -13,33 +13,11 @@ extern const int Max_Input;
 
 //Constructor
 //TODO: Move around!!!!
+Plugboard :: Plugboard(){
 
-typedef vector < pair<int, int> > vecPair;
-int Plugboard :: map(int input){
-  if(! isValidInput(input)){
-  cout << "Error:Plugboard input out of bound." << endl;
-  exit(EXIT_FAILURE);
-  }
-
-  for(vecPair::const_iterator iter = PB_vec_pair.begin(); iter != PB_vec_pair.end(); iter++){
-  if(iter->first == input){
-    return iter->second;
-  }
-  
-  if(iter->second == input){
-    return iter->first;
-  }
-  }
-  return input;
 }
 
-/*
-char Plugboard :: getOutputChar(int input){
-  return IntToChar(input);
-}
-*/
-
-Plugboard :: Plugboard(char* filename){
+void Plugboard :: readfile(char* filename){
   int input1;
   int input2;
 
@@ -49,15 +27,12 @@ Plugboard :: Plugboard(char* filename){
   ifstream plugboard_file;
   plugboard_file.open(filename);
 
+
   if(!plugboard_file.is_open()){
     cout << "Error: Plugboard file cannot be opned." << endl;
     exit(EXIT_FAILURE);
   }
-/*
-  while(!plugboard_file.eof()){
-   numOfInt ++; 
-  }
-*/
+
   //TODO: CHEKC!!
   //Insert the vector pair into the list of vectors
 
@@ -70,10 +45,11 @@ Plugboard :: Plugboard(char* filename){
     plugboard_file >> input2;
 
   }
-
+/*
 if(PB_vec_pair.size() % 2 != 0){
   cout << "Error: A plugboard file should contain an even number of numbers." << endl;
 }
+*/
 /*
 //The plugboard file should contain an even number of numbers
   if(numOfInt % 2 != 0){
@@ -92,6 +68,40 @@ if(PB_vec_pair.size() % 2 != 0){
   plugboard_file.close();
 
 }
+
+
+
+
+
+typedef vector < pair<int, int> > vecPair;
+
+int Plugboard :: map(int input){
+ /* if(! isValidInput(input)){
+  cout << "Error:Plugboard input out of bound." << endl;
+  exit(EXIT_FAILURE);
+  }
+*/
+  for(vecPair::const_iterator iter = PB_vec_pair.begin(); iter != PB_vec_pair.end(); iter++){
+  if(iter->first == input){
+    cout << iter->first << endl;
+    cout << input << endl;
+    return iter->second;
+  }
+  
+  if(iter->second == input){
+    cout << iter-> second << endl;
+    cout << input << endl;
+    return iter->first;
+  }
+  }
+  return input;
+}
+
+/*
+char Plugboard :: getOutputChar(int input){
+  return IntToChar(input);
+}
+*/
 
 
 //Destructor

@@ -3,7 +3,7 @@
 
 #include "Component.hpp"
 
-class Reflector : public Component{
+class Reflector: public Component{
 public:
   Reflector();
   ~Reflector();

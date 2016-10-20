@@ -12,8 +12,9 @@ class Plugboard : public Component{
   vector <pair <int, int> > PB_vec_pair;
 
 public:
-  Plugboard(char* filename);
+  Plugboard();
   ~Plugboard();
+  void readfile(char*);
   int map(int);
 };
 
