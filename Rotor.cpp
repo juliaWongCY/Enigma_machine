@@ -11,10 +11,11 @@
 using namespace std;
 extern const int Max_input;
 
+//Constructor
 Rotor :: Rotor(){
 
 }
-//Constructor
+
 void Rotor :: readfile(char* filename){
 
   //To store the number of rotation in each rotor
@@ -57,7 +58,7 @@ int Rotor :: mapBackward(int input){
 //Considering negative output
   if(input < 0){
    return (26 + (input + moveBackward[input])) % Max_input;
-  } 
+  }
   return (input + moveBackward[input]) % Max_input;
 
 
@@ -70,11 +71,13 @@ Rotor :: ~Rotor(){
 
 
 bool Rotor :: rotatedOneRound(){
+  return numOfRotation == Max_input;
+  /*
   if(numOfRotation == Max_input){
     numOfRotation = 0;
     return true;
   }
-  return false;
+  return false;*/
 }
 
 //After each input, the rotor will advance one posiiton

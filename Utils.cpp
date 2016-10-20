@@ -5,6 +5,7 @@
 #include "Utils.hpp"
 
 using namespace std;
+//extern const int Max_input;
 
 int CharToInt(char character){
   return character - 'A';

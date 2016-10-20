@@ -19,9 +19,6 @@ char Encryption(char c);
 void RotatingRotors();
 
 vector<Rotor> num_rotors;
-Rotor* rotor_ptr;
-Plugboard* pb_ptr;
-Reflector* reflector_ptr;
 
 Rotor rotor;
 Plugboard pb;
@@ -131,7 +128,7 @@ void RotatingRotors(){
   for(unsigned int i = 0; i < num_rotors.size(); i++){
     //If the first rotor has rotated one cycle, the next rotor needs to rotate
 
-//    num_rotors[i].rotate();
+    //num_rotors[i].rotate();
     if(num_rotors[i].rotatedOneRound()){
       num_rotors[i + 1].rotate();
     }

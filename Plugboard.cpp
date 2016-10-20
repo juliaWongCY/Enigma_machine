@@ -12,7 +12,6 @@ using namespace std;
 extern const int Max_Input;
 
 //Constructor
-//TODO: Move around!!!!
 Plugboard :: Plugboard(){
 
 }
@@ -38,6 +37,8 @@ void Plugboard :: readfile(char* filename){
 
   plugboard_file >> input1;
   plugboard_file >> input2;
+
+
 
   while(!plugboard_file.eof()){
     PB_vec_pair.push_back(make_pair(input1, input2));
@@ -83,14 +84,9 @@ int Plugboard :: map(int input){
 */
   for(vecPair::const_iterator iter = PB_vec_pair.begin(); iter != PB_vec_pair.end(); iter++){
   if(iter->first == input){
-//    cout << iter->first << endl;
-  //  cout << input << endl;
     return iter->second;
   }
-  
   if(iter->second == input){
-//    cout << iter-> second << endl;
-//    cout << input << endl;
     return iter->first;
   }
   }
@@ -109,4 +105,3 @@ Plugboard :: ~Plugboard(){
 
 
 }
-
