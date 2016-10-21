@@ -5,12 +5,12 @@
 #include "Utils.hpp"
 
 using namespace std;
-//extern const int Max_input;
+extern const int Max_input;
 
 int CharToInt(char character){
   return character - 'A';
 }
 
 int IntToChar(int integer){
-  return integer + 'A';
+  return (integer % Max_input) + 'A';
 }

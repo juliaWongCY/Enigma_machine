@@ -14,10 +14,10 @@ Reflector :: Reflector(){
 }
 
 int Reflector :: map(int input){
-/*  if(! isValidInput(input) % Max_input){
+  if(! isValidInput(input)){
     cout << "Error: Please enter input in between 0 to 26." << endl;
     exit(EXIT_FAILURE);
-  }*/
+  }
   return (input + 13) % 26;
 }
 

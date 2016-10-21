@@ -37,7 +37,6 @@ int main(int argc, char **argv){
 
 
   //To get the rotor files
-
   for(int i = 1; i < argc - 1; ++i){
    if(isRotorFile(argv[i])){
     rotor.readfile(argv[i]);
@@ -51,24 +50,67 @@ int main(int argc, char **argv){
   if(isPlugBoardFile(argv[argc-1])){
   pb.readfile(argv[argc-1]);
 }
-//  pb_file = new Plugboard(argv[argc-1]);
+/*
+  char currInt;
+  string input;
+  cin >> ws;
+  getline(cin, input);
+  string out = "";
+  unsigned int rotorSize = num_rotors.size();
+  for(unsigned int i = 0; i < input.length(); i++){
+  char curr = input[i];
+  currInt = CharToInt(curr);
+  if(isupper(curr)){
+  // pass to PlugBoard
+  curr = pb.map(currInt);
+    if(rotorSize > 0){
+      // pass to rotor (forward)
+      for(size_t j = 0; j < rotorSize; j++){
+        currInt = num_rotors[j].map(currInt);
+      }
+    }
 
-   //Set up the reflector
-//  reflector = new Reflector();
+  // pass to reflector
+  currInt = reflector.map(currInt);
+
+    //pass to rotor(backward)
+    if(rotorSize > 0){
+      for(unsigned int j =0; j < rotorSize; j++){
+        currInt = num_rotors[rotorSize - j - 1].map(currInt);
+      }
+    }
+      
+
+  //Pass to PlugBoard(backward)
+  currInt = pb.map(currInt);
+
+  RotatingRotors();
+  
+  } else {
+
+  cout << " error: input should be capital and non whitespace." << endl;
+  exit(EXIT_FAILURE);
+  }
+}
+  cout << currInt << endl;
+  exit(EXIT_SUCCESS);
+
+}
+*/
 
   string input;
   cin >> ws;
-  cin >> input;
+  getline(cin, input);
 
   for(string :: iterator iter = input.begin(); iter != input.end(); ++iter){
     if(isupper(*iter)){
-    cout << Encryption(*iter);
-//    RotatingRotors();
-  } else if(iswspace(*iter)){
+  cout << Encryption(*iter);
+  } else{
     cout <<"Error: the input should be Upper case and non white space char" << endl;
     exit(EXIT_FAILURE);
   }
 }
+
 exit(EXIT_SUCCESS);
 //return 0; //TODO
 }
@@ -88,6 +130,7 @@ char Encryption(char c){
   input = num_rotors[i].map(input);
   }
 
+//  cout << "input: " << input << endl;
 
 //3rd -- pass to reflector
   input = reflector.map(input);
@@ -100,7 +143,7 @@ char Encryption(char c){
 
 //5th -- pass through plugboard again
   input = pb.map(input);
-  
+    
   RotatingRotors();
 
   return (char)IntToChar(input);
@@ -112,8 +155,8 @@ void RotatingRotors(){
   for(unsigned int i = 0; i < num_rotors.size(); i++){
     //If the first rotor has rotated one cycle, the next rotor needs to rotate
 
-//    num_rotors[i].rotate();
-    if(num_rotors[i].rotatedOneRound()&& (i+1) < num_rotors.size()){
+    num_rotors[i].rotate();
+    if(num_rotors[i].rotatedOneRound() && (i+1) < num_rotors.size()){
       num_rotors[i + 1].rotate();
     }
 
