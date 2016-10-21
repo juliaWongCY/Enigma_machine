@@ -45,16 +45,16 @@ int main(int argc, char **argv){
   if(isPlugBoardFile(argv[argc-1])){
   pb.readfile(argv[argc-1]);
 }
-  string input;
-  cin >> ws;
-  getline(cin, input);
 
-  for(string :: iterator iter = input.begin(); iter != input.end(); ++iter){
-    if(isupper(*iter)){
-  cout << Encryption(*iter);
-  } else{
-    cout <<"Error: the input should be Upper case and non white space char" << endl;
-    exit(EXIT_FAILURE);
+  string input;
+  while(cin >> ws >> input){
+    for(string :: iterator iter = input.begin(); iter != input.end(); ++iter){
+      if(isupper(*iter)){
+    cout << Encryption(*iter);
+    } else{
+      cout <<"Error: the input should be Upper case and non white space char" << endl;
+      exit(EXIT_FAILURE);
+    }
   }
 }
 

@@ -12,8 +12,7 @@ class Rotor : public Component {
 
  int numOfRotation;
  int move[Max_input];
- //int moveForward[Max_input];//There will be 26 numbers for forward instr
- //int moveBackward[Max_input];//There will be 26 numbers for backward instr
+
 public:
   Rotor();
   ~Rotor();
