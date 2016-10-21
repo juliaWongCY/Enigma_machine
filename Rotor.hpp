@@ -11,8 +11,9 @@ extern const int Max_input;
 class Rotor : public Component {
 
  int numOfRotation;
- int moveForward[Max_input];//There will be 26 numbers for forward instr
- int moveBackward[Max_input];//There will be 26 numbers for backward instr
+ int move[Max_input];
+ //int moveForward[Max_input];//There will be 26 numbers for forward instr
+ //int moveBackward[Max_input];//There will be 26 numbers for backward instr
 public:
   Rotor();
   ~Rotor();

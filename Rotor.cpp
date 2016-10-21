@@ -19,10 +19,8 @@ Rotor :: Rotor(){
 void Rotor :: readfile(char* filename){
 
   //To store the number of rotation in each rotor
-//  numOfRotation = 0;
   int input; //For passing in the data from the file
   ifstream rotor_file(filename);
-  //rotor_file.open(filename);
 
   if(!rotor_file.is_open()){
   cout << "Error: Rotor file cannot be opened." << endl;
@@ -30,14 +28,12 @@ void Rotor :: readfile(char* filename){
   }
 
 
-  rotor_file >> input;
   while(!rotor_file.eof()){
-    for(int i = 0; i <  Max_input; ++i){
-//      moveForwiard[i] = input;
-      moveForward[i] = input - i;
-
-    //  moveBackward[input] = i;
-      moveBackward[input] = i - input;
+    rotor_file >> input;
+    for(int i = 0; i <  Max_input; i++){
+      move[i] = input;
+      //moveForward[i] = input - i;
+      //moveBackward[input] = i - input;
       rotor_file >> input;
     }
   }
@@ -46,19 +42,20 @@ rotor_file.close();
 
 
 int Rotor :: map(int input){
-
+  return ((move[input] - numOfRotation) + Max_input) % Max_input;
+  /*
   if(input < 0){
     input = input + Max_input;
   }
-  int output = (input + numOfRotation) % Max_input;
-  int result = (moveForward[output] + input);// % Max_input;
+  int output = (moveForward[input] + input);
+  int result = (output - numOfRotation) % Max_input;
   if(result < 0){
-    result = (result + Max_input) % Max_input;
+    result = (result + Max_input);
   }
   return result % Max_input;
-/*
+
   //considering negative input
-  if(input < 0){  
+  if(input < 0){
   return (26 +(input +  moveForward[input])) % Max_input;
   }
  return (input + moveForward[input]) % Max_input;
@@ -66,19 +63,23 @@ int Rotor :: map(int input){
 }
 
 int Rotor :: mapBackward(int input){
+  int output = (input + numOfRotation) % Max_input;
+  for(int i = 0; i < Max_input; i++){
+    if(output == move[i]){
+      return i;
+    }
+  }
+  /*
   if(input < 0){
   input = input + Max_input;
   }
- 
   int output = (input + numOfRotation) % Max_input;
-  int result = (moveBackward[output] + input);// % Max_input;
+  int result = (moveBackward[output] + input);
   if(result < 0){
-    result = (result + Max_input) % Max_input;
+    result = (result + Max_input);
   }
   return result % Max_input;
 
-
-/*
   int i = input + numOfRotation % Max_input;
   if(input < 0){
   return (26 + (moveBackward[i] + input)) % Max_input;
@@ -95,6 +96,7 @@ int Rotor :: mapBackward(int input){
   return (input + moveBackward[input]) % Max_input;
 
 */
+return 0;
 }
 
 //Destructor
@@ -104,18 +106,25 @@ Rotor :: ~Rotor(){
 
 
 bool Rotor :: rotatedOneRound(){
-  return numOfRotation == Max_input;
-  
-/*  if(numOfRotation == Max_input){
+  //return numOfRotation == Max_input;
+
+  if(numOfRotation == Max_input){
     numOfRotation = 0;
     return true;
   }
-*/
   return false;
 }
 
 //After each input, the rotor will advance one posiiton
 void Rotor :: rotate(){
+
+  int ori_first = move[0];
+
+  for (int i = 0; i < Max_input ; i++) {
+    move[i] = move[i + 1];
+  }
+
+  move[Max_input - 1] = ori_first;
 /*
  //We need to shift forward and backward by one
  int ori_last_forward = moveForward[Max_input - 1];

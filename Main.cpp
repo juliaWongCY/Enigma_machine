@@ -13,13 +13,11 @@
 
 using namespace std;
 
-
 //Function declaration
 char Encryption(char c);
 void RotatingRotors();
 
 vector<Rotor> num_rotors;
-
 Rotor rotor;
 Plugboard pb;
 Reflector reflector;
@@ -32,7 +30,6 @@ int main(int argc, char **argv){
     cout<< "<[rotors.rot]> -- valid rotor files, the number of rotors is not fixed." << endl;
     cout<< "<plugboard.pb> -- valid plugboard files." << endl;
     exit(EXIT_FAILURE);
-
   }
 
 
@@ -41,63 +38,13 @@ int main(int argc, char **argv){
    if(isRotorFile(argv[i])){
     rotor.readfile(argv[i]);
     num_rotors.push_back(rotor);
-//    cout << num_rotors.size() << endl;
     }
-
   }
 
   //To get the plugboard file
   if(isPlugBoardFile(argv[argc-1])){
   pb.readfile(argv[argc-1]);
 }
-/*
-  char currInt;
-  string input;
-  cin >> ws;
-  getline(cin, input);
-  string out = "";
-  unsigned int rotorSize = num_rotors.size();
-  for(unsigned int i = 0; i < input.length(); i++){
-  char curr = input[i];
-  currInt = CharToInt(curr);
-  if(isupper(curr)){
-  // pass to PlugBoard
-  curr = pb.map(currInt);
-    if(rotorSize > 0){
-      // pass to rotor (forward)
-      for(size_t j = 0; j < rotorSize; j++){
-        currInt = num_rotors[j].map(currInt);
-      }
-    }
-
-  // pass to reflector
-  currInt = reflector.map(currInt);
-
-    //pass to rotor(backward)
-    if(rotorSize > 0){
-      for(unsigned int j =0; j < rotorSize; j++){
-        currInt = num_rotors[rotorSize - j - 1].map(currInt);
-      }
-    }
-      
-
-  //Pass to PlugBoard(backward)
-  currInt = pb.map(currInt);
-
-  RotatingRotors();
-  
-  } else {
-
-  cout << " error: input should be capital and non whitespace." << endl;
-  exit(EXIT_FAILURE);
-  }
-}
-  cout << currInt << endl;
-  exit(EXIT_SUCCESS);
-
-}
-*/
-
   string input;
   cin >> ws;
   getline(cin, input);
@@ -112,7 +59,6 @@ int main(int argc, char **argv){
 }
 
 exit(EXIT_SUCCESS);
-//return 0; //TODO
 }
 
 
@@ -121,32 +67,39 @@ char Encryption(char c){
   int input = CharToInt(c);
   size_t rotorSize = num_rotors.size();
 
-// 1st -- after reading the file, pass into plugboard
+if(isupper(c)){
+  // 1st -- after reading the file, pass into plugboard
    input =  pb.map(input);
 
-
-//2nd -- pass to rotors(forward)
-  for(unsigned int i = 0; i < rotorSize; ++i){
-  input = num_rotors[i].map(input);
+  //2nd -- pass to rotors(forward)
+  if(rotorSize > 0){
+    for(unsigned int i = 0; i < rotorSize; ++i){
+    input = num_rotors[i].map(input);
+    }
   }
 
-//  cout << "input: " << input << endl;
-
-//3rd -- pass to reflector
+  //3rd -- pass to reflector
   input = reflector.map(input);
 
-//4th -- pass to rotors(backward)
-//  for(unsigned int i = num_rotors.size() - 1; i >= 0; i--){
-  for(unsigned int i = 0; i < rotorSize; ++i){
-  input = num_rotors[rotorSize - i - 1].mapBackward(input);
+  //4th -- pass to rotors(backward)
+  if(rotorSize > 0){
+    for(unsigned int i = 0; i < rotorSize; ++i){
+    input = num_rotors[rotorSize - i - 1].mapBackward(input);
+    }
   }
 
-//5th -- pass through plugboard again
+  //5th -- pass through plugboard again
   input = pb.map(input);
-    
-  RotatingRotors();
 
+  if(rotorSize > 0){
+    RotatingRotors();
+  }
   return (char)IntToChar(input);
+
+} else {
+  cout << " error: input should be capital and non whitespace." << endl;
+  exit(EXIT_FAILURE);
+  }
 }
 
 
@@ -154,12 +107,13 @@ char Encryption(char c){
 void RotatingRotors(){
   for(unsigned int i = 0; i < num_rotors.size(); i++){
     //If the first rotor has rotated one cycle, the next rotor needs to rotate
-
+    //The first rotor always rotate
     num_rotors[i].rotate();
     if(num_rotors[i].rotatedOneRound() && (i+1) < num_rotors.size()){
-      num_rotors[i + 1].rotate();
+      continue;
+    } else {
+      break;
     }
-
   }
 
 }
